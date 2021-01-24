@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Responsive */
+
+/*for desktop*/
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+/*For mobile*/
+@media only screen and (max-width: 480px) {
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  padding: 5%;
+}
+
+#app {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.legend {
+  float: left;
+}
