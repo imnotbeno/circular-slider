@@ -9,42 +9,22 @@
   <body>
     <div class="container">
       <div id="app">
-        <ul class="legend col-3">
-          <li><span>COST1</span></li>
-          <li><span>COST2</span></li>
-          <li><span>COST3</span></li>
-          <li><span>COST4</span></li>
-        </ul>
-
-        <div class="sliders col-9 right">
-          <svg width="400" height="400">
-            <circle
-              cx="150"
-              cy="150"
-              r="120"
-              stroke="red"
-              stroke-width="4"
-              fill="none"
-            />
-            <circle
-              cx="150"
-              cy="150"
-              r="80"
-              stroke="black"
-              stroke-width="4"
-              fill="none"
-            />
-            <circle
-              cx="150"
-              cy="150"
-              r="40"
-              stroke="blue"
-              stroke-width="4"
-              fill="none"
-            />
-          </svg>
+        <div class="legend col-3">
+          <ul>
+            <li id="test" class="name"></li>
+            <li><span>COST1</span></li>
+            <li><span>COST2</span></li>
+            <li><span>COST3</span></li>
+            <li><span>COST4</span></li>
+          </ul>
         </div>
+
+        <div id="sliders" class="col-9 right"></div>
       </div>
     </div>
+
+    <script type="text/javascript" src="CircularSlider.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
   </body>
 </html>
