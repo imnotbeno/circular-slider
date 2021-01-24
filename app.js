@@ -8,5 +8,4 @@ const test_options = {
 };
 
 let test_slider = new CircularSlider(test_options);
-console.log(test_slider.options.container);
 test_slider.drawSVG();

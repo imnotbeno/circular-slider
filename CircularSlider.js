@@ -6,6 +6,12 @@ class CircularSlider {
     this.container = document.getElementById(this.options.container);
   }
 
+  
+  updateLegend(){
+      
+  }
+
+
   drawSVG() {
     
     const svg = document.createElementNS(SVG_URL, "svg");
