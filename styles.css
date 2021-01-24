@@ -55,6 +55,11 @@ body {
 .legend-title {
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 10px;
+}
+
+.legend-amount{
+  margin-top: 12px;
 }
 
 .color-square {
