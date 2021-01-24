@@ -17,7 +17,17 @@ class CircularSlider {
     //Background path
     const svgContainer = document.getElementById("svg_container");
     this.drawSliderPath(this.options, svgContainer);
+    this.drawCircle(this.options, svgContainer);
 
+    //test calculation
+    let testpath = this.calculatePath(
+      this.cx,
+      this.cy,
+      this.options.radius,
+      0,
+      359
+    );
+    console.log(testpath);
   }
 
   //Draw svg conatiner
@@ -43,9 +53,20 @@ class CircularSlider {
     svg.appendChild(path);
   }
 
-  //Method for calculating background and active paths
-  calculatePath(x, y, r, startangle, endangle) {
+  //Draw circle for bottom of slider
+  drawCircle(opts, svg) {
+    const circle = document.createElementNS(SVG_URL, "circle");
+    circle.setAttribute("cx", this.cx);
+    circle.setAttribute("cy", this.cy);
+    circle.setAttribute("r", opts.radius);
+    circle.setAttribute("stroke", opts.color);
+    circle.setAttribute("stroke-width", 3);
+    circle.setAttribute("fill", "none");
+    svg.appendChild(circle);
+  }
 
+  //Method for calculating active paths
+  calculatePath(x, y, r, startangle, endangle) {
     //Convert start/end angles to cartesian to get coordinates
     let start = this.polarToCartesian(x, y, r, endangle);
     let end = this.polarToCartesian(x, y, r, startangle);
