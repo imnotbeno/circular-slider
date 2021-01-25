@@ -17,9 +17,9 @@ class CircularSlider {
     //Background path
     const svgContainer = document.getElementById("svg_container");
     // this.drawSliderPath(this.options, svgContainer);
-    this.drawCircle(this.options.radius, svgContainer);
+    this.drawCircle(this.options, svgContainer);
     //Draw handle
-    this.drawHandle(this.pathWidth / 2, svgContainer);
+    this.drawHandle(this.options.radius, 0, svgContainer);
   }
 
   //Draw svg conatiner
@@ -35,6 +35,7 @@ class CircularSlider {
   drawSliderPath(opts, svg) {
     const path = document.createElementNS(SVG_URL, "path");
 
+    //Calculate path
     path.setAttribute(
       "d",
       this.calculatePath(this.cx, this.cy, opts.radius, 0, 359)
@@ -46,23 +47,27 @@ class CircularSlider {
   }
 
   //Draw circle for bottom of slider
-  drawCircle(r, svg) {
+  drawCircle(opts, svg) {
     const circle = document.createElementNS(SVG_URL, "circle");
     circle.setAttribute("cx", this.cx);
     circle.setAttribute("cy", this.cy);
-    circle.setAttribute("r", r);
+    circle.setAttribute("r", opts.radius);
     circle.setAttribute("stroke", "grey");
     circle.setAttribute("stroke-width", 10);
     circle.setAttribute("fill", "none");
     svg.appendChild(circle);
   }
 
-  //Draw handle
-  drawHandle(r, svg) {
+  //Draw handle and calculate its coordinates
+  drawHandle(r, angle, svg) {
+
+    //calculate handle coordinates
+    let coordinates = this.polarToCartesian(this.cx, this.cy, r, angle);
+
     const handle = document.createElementNS(SVG_URL, "circle");
-    handle.setAttribute("cx", this.cx);
-    handle.setAttribute("cy", this.cy);
-    handle.setAttribute("r", r);
+    handle.setAttribute("cx", coordinates.x);
+    handle.setAttribute("cy", coordinates.y);
+    handle.setAttribute("r", this.pathWidth / 2);
     handle.setAttribute("stroke", "black");
     handle.setAttribute("stroke-width", 5);
     handle.setAttribute("fill", "grey");
