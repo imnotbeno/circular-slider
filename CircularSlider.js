@@ -14,7 +14,7 @@ class CircularSlider {
     //Svg container
     this.drawSVGcontainer();
 
-    //Background path
+    //get svg container
     const svgContainer = document.getElementById("svg_container");
 
     // this.drawSliderPath(this.options, svgContainer);
@@ -43,11 +43,18 @@ class CircularSlider {
   }
 
   handleMouseDown(event) {
-    // let coordinates = this.calculateCursorPosition(event);
-    // console.log(coordinates.x);
-    // console.log(coordinates.y);
     let mouse_angle = this.calculateCursorAngle(event);
-    console.log(mouse_angle);
+
+    const handle = document.getElementById("slider_handle");
+    const handleCenter = this.polarToCartesian(
+      this.cx,
+      this.cy,
+      this.options.radius,
+      mouse_angle
+    );
+    handle.setAttribute("cx", handleCenter.x);
+    handle.setAttribute("cy", handleCenter.y);
+
   }
 
   //********DRAW FUNCTIONS********//
@@ -62,14 +69,14 @@ class CircularSlider {
   }
 
   //Draw svg path
-  drawSliderPath(opts, svg) {
+  drawSliderPath(opts, angle, svg) {
     const path = document.createElementNS(SVG_URL, "path");
 
     //Calculate path
     path.setAttribute("id", "slider_path");
     path.setAttribute(
       "d",
-      this.calculatePath(this.cx, this.cy, opts.radius, 0, 359)
+      this.calculatePath(this.cx, this.cy, opts.radius, 0, angle)
     );
     path.setAttribute("stroke", opts.color);
     path.setAttribute("stroke-width", this.pathWidth);
@@ -91,9 +98,14 @@ class CircularSlider {
   }
 
   //Draw handle and calculate its coordinates
-  drawHandle(r, angle, svg) {
+  drawHandle(slider_radius, angle, svg) {
     //calculate handle coordinates
-    let coordinates = this.polarToCartesian(this.cx, this.cy, r, angle);
+    let coordinates = this.polarToCartesian(
+      this.cx,
+      this.cy,
+      slider_radius,
+      angle
+    );
 
     const handle = document.createElementNS(SVG_URL, "circle");
     handle.setAttribute("id", "slider_handle");
@@ -172,6 +184,6 @@ class CircularSlider {
       angle_deg = angle;
     }
 
-    return { angle_deg, angle_rad };
+    return angle_deg;
   }
 }
