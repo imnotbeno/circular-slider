@@ -16,14 +16,41 @@ class CircularSlider {
 
     //Background path
     const svgContainer = document.getElementById("svg_container");
+
     // this.drawSliderPath(this.options, svgContainer);
     this.drawCircle(this.options, svgContainer);
+
     //Draw handle
     this.drawHandle(this.options.radius, 0, svgContainer);
 
-    //click event listener
-    svgContainer.addEventListener("mousedown", this.calculateCursorPosition);
+    //Svg container event listeners
+    this.eventListeners();
   }
+
+  //********EVENT LISTENERS********//
+
+  eventListeners() {
+    let element = document.getElementById("slider_circle");
+
+    //click event listener
+    element.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    //touch event listener
+    // element.addEventListener("touchstart", this.calculateCursorPosition);
+    // //event listener while moving cursor
+    // element.addEventListener("mousemove", this.calculateCursorPosition);
+    // //event listener while moving finger
+    // element.addEventListener("touchmove", this.calculateCursorPosition);
+  }
+
+  handleMouseDown(event) {
+    // let coordinates = this.calculateCursorPosition(event);
+    // console.log(coordinates.x);
+    // console.log(coordinates.y);
+    let mouse_angle = this.calculateCursorAngle(event);
+    console.log(mouse_angle);
+  }
+
+  //********DRAW FUNCTIONS********//
 
   //Draw svg conatiner
   drawSVGcontainer() {
@@ -39,6 +66,7 @@ class CircularSlider {
     const path = document.createElementNS(SVG_URL, "path");
 
     //Calculate path
+    path.setAttribute("id", "slider_path");
     path.setAttribute(
       "d",
       this.calculatePath(this.cx, this.cy, opts.radius, 0, 359)
@@ -52,6 +80,7 @@ class CircularSlider {
   //Draw circle for bottom of slider
   drawCircle(opts, svg) {
     const circle = document.createElementNS(SVG_URL, "circle");
+    circle.setAttribute("id", "slider_circle");
     circle.setAttribute("cx", this.cx);
     circle.setAttribute("cy", this.cy);
     circle.setAttribute("r", opts.radius);
@@ -67,6 +96,7 @@ class CircularSlider {
     let coordinates = this.polarToCartesian(this.cx, this.cy, r, angle);
 
     const handle = document.createElementNS(SVG_URL, "circle");
+    handle.setAttribute("id", "slider_handle");
     handle.setAttribute("cx", coordinates.x);
     handle.setAttribute("cy", coordinates.y);
     handle.setAttribute("r", this.pathWidth / 2);
@@ -75,6 +105,8 @@ class CircularSlider {
     handle.setAttribute("fill", "grey");
     svg.appendChild(handle);
   }
+
+  //********CALCULATIONS********//
 
   //Method for calculating active paths
   calculatePath(x, y, r, startangle, endangle) {
@@ -114,9 +146,32 @@ class CircularSlider {
     let x = event.clientX - svgContainer.left;
     let y = event.clientY - svgContainer.top;
 
-    console.log(x);
-    console.log(y);
-
     return { x, y };
+  }
+
+  calculateCursorAngle(event) {
+    //Get cursor coordinates
+    let coordinates = this.calculateCursorPosition(event);
+    let x = coordinates.x;
+    let y = coordinates.y;
+    let angle_deg;
+
+    //distance from center to position
+    let dx = x - this.cx;
+    let dy = y - this.cy;
+
+    //angle in rad
+    let angle_rad = Math.atan2(dx, -dy);
+
+    //convert rad to degree
+    let angle = (angle_rad * 180) / Math.PI;
+
+    if (angle < 0) {
+      angle_deg = angle + 360;
+    } else {
+      angle_deg = angle;
+    }
+
+    return { angle_deg, angle_rad };
   }
 }
