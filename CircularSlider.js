@@ -16,18 +16,10 @@ class CircularSlider {
 
     //Background path
     const svgContainer = document.getElementById("svg_container");
-    this.drawSliderPath(this.options, svgContainer);
-    this.drawCircle(this.options, svgContainer);
-
-    //test calculation
-    let testpath = this.calculatePath(
-      this.cx,
-      this.cy,
-      this.options.radius,
-      0,
-      359
-    );
-    console.log(testpath);
+    // this.drawSliderPath(this.options, svgContainer);
+    this.drawCircle(this.options.radius, svgContainer);
+    //Draw handle
+    this.drawHandle(this.pathWidth / 2, svgContainer);
   }
 
   //Draw svg conatiner
@@ -53,16 +45,28 @@ class CircularSlider {
     svg.appendChild(path);
   }
 
-  //Draw circle for bottom of slider and handle
-  drawCircle(opts, svg) {
+  //Draw circle for bottom of slider
+  drawCircle(r, svg) {
     const circle = document.createElementNS(SVG_URL, "circle");
     circle.setAttribute("cx", this.cx);
     circle.setAttribute("cy", this.cy);
-    circle.setAttribute("r", opts.radius);
-    circle.setAttribute("stroke", "black");
+    circle.setAttribute("r", r);
+    circle.setAttribute("stroke", "grey");
     circle.setAttribute("stroke-width", 10);
     circle.setAttribute("fill", "none");
     svg.appendChild(circle);
+  }
+
+  //Draw handle
+  drawHandle(r, svg) {
+    const handle = document.createElementNS(SVG_URL, "circle");
+    handle.setAttribute("cx", this.cx);
+    handle.setAttribute("cy", this.cy);
+    handle.setAttribute("r", r);
+    handle.setAttribute("stroke", "black");
+    handle.setAttribute("stroke-width", 5);
+    handle.setAttribute("fill", "grey");
+    svg.appendChild(handle);
   }
 
   //Method for calculating active paths
