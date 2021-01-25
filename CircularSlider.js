@@ -7,7 +7,7 @@ class CircularSlider {
     this.svgContainerSize = 400;
     this.cx = this.svgContainerSize / 2;
     this.cy = this.svgContainerSize / 2;
-    this.pathWidth = 3;
+    this.pathWidth = 30;
   }
 
   drawSliders() {
@@ -53,14 +53,14 @@ class CircularSlider {
     svg.appendChild(path);
   }
 
-  //Draw circle for bottom of slider
+  //Draw circle for bottom of slider and handle
   drawCircle(opts, svg) {
     const circle = document.createElementNS(SVG_URL, "circle");
     circle.setAttribute("cx", this.cx);
     circle.setAttribute("cy", this.cy);
     circle.setAttribute("r", opts.radius);
-    circle.setAttribute("stroke", opts.color);
-    circle.setAttribute("stroke-width", 3);
+    circle.setAttribute("stroke", "black");
+    circle.setAttribute("stroke-width", 10);
     circle.setAttribute("fill", "none");
     svg.appendChild(circle);
   }
@@ -73,9 +73,9 @@ class CircularSlider {
     let direction;
 
     if (endangle - startangle <= 180) {
-      direction = 1;
-    } else {
       direction = 0;
+    } else {
+      direction = 1;
     }
 
     //array for drawing SVG path
@@ -88,7 +88,7 @@ class CircularSlider {
 
   //polar to cartesian converter
   polarToCartesian(cx, cy, r, angleDegrees) {
-    let angleInRad = (angleDegrees * Math.PI) / 180;
+    let angleInRad = ((angleDegrees - 90) * Math.PI) / 180;
     let x = cx + r * Math.cos(angleInRad);
     let y = cy + r * Math.sin(angleInRad);
     return { x, y };
