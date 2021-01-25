@@ -20,6 +20,9 @@ class CircularSlider {
     this.drawCircle(this.options, svgContainer);
     //Draw handle
     this.drawHandle(this.options.radius, 0, svgContainer);
+
+    //click event listener
+    svgContainer.addEventListener("mousedown", this.calculateCursorPosition);
   }
 
   //Draw svg conatiner
@@ -60,7 +63,6 @@ class CircularSlider {
 
   //Draw handle and calculate its coordinates
   drawHandle(r, angle, svg) {
-
     //calculate handle coordinates
     let coordinates = this.polarToCartesian(this.cx, this.cy, r, angle);
 
@@ -100,6 +102,21 @@ class CircularSlider {
     let angleInRad = ((angleDegrees - 90) * Math.PI) / 180;
     let x = cx + r * Math.cos(angleInRad);
     let y = cy + r * Math.sin(angleInRad);
+    return { x, y };
+  }
+
+  calculateCursorPosition(event) {
+    //Get svg dimensions and position relative to viewport
+    let svgContainer = document
+      .getElementById("svg_container")
+      .getBoundingClientRect();
+
+    let x = event.clientX - svgContainer.left;
+    let y = event.clientY - svgContainer.top;
+
+    console.log(x);
+    console.log(y);
+
     return { x, y };
   }
 }
