@@ -17,7 +17,7 @@ class CircularSlider {
     //get svg container
     const svgContainer = document.getElementById("svg_container");
 
-    // this.drawSliderPath(this.options, svgContainer);
+    this.drawSliderPath(this.options, 0, svgContainer);
     this.drawCircle(this.options, svgContainer);
 
     //Draw handle
@@ -43,18 +43,25 @@ class CircularSlider {
   }
 
   handleMouseDown(event) {
-    let mouse_angle = this.calculateCursorAngle(event);
+    let mouseAngle = this.calculateCursorAngle(event);
 
+    //Draw slider progress
+    const progressPath = document.getElementById("slider_path");
+    progressPath.setAttribute(
+      "d",
+      this.calculatePath(this.cx, this.cy, this.options.radius, 0, mouseAngle)
+    );
+
+    //Draw new handle position
     const handle = document.getElementById("slider_handle");
     const handleCenter = this.polarToCartesian(
       this.cx,
       this.cy,
       this.options.radius,
-      mouse_angle
+      mouseAngle
     );
     handle.setAttribute("cx", handleCenter.x);
     handle.setAttribute("cy", handleCenter.y);
-
   }
 
   //********DRAW FUNCTIONS********//
@@ -166,24 +173,24 @@ class CircularSlider {
     let coordinates = this.calculateCursorPosition(event);
     let x = coordinates.x;
     let y = coordinates.y;
-    let angle_deg;
+    let angleDeg;
 
     //distance from center to position
     let dx = x - this.cx;
     let dy = y - this.cy;
 
     //angle in rad
-    let angle_rad = Math.atan2(dx, -dy);
+    let angleRad = Math.atan2(dx, -dy);
 
     //convert rad to degree
-    let angle = (angle_rad * 180) / Math.PI;
+    let angle = (angleRad * 180) / Math.PI;
 
     if (angle < 0) {
-      angle_deg = angle + 360;
+      angleDeg = angle + 360;
     } else {
-      angle_deg = angle;
+      angleDeg = angle;
     }
 
-    return angle_deg;
+    return angleDeg;
   }
 }
