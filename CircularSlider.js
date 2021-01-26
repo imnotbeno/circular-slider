@@ -18,11 +18,11 @@ class CircularSlider {
     //get svg container
     const svgContainer = document.getElementById("svg_container");
 
-    //Slider progress path
-    this.drawSliderPath(this.options, 0, svgContainer);
-
     //Slider background circle
     this.drawCircle(this.options, svgContainer);
+
+    //Slider progress path
+    this.drawSliderPath(this.options, 0, svgContainer);
 
     //Draw handle
     this.drawHandle(this.options.radius, 0, svgContainer);
@@ -34,20 +34,33 @@ class CircularSlider {
   //********EVENT LISTENERS********//
 
   eventListeners() {
-    let element = document.getElementById(this.options.container);
+    let circle = document.getElementById(this.options.container);
+    let handle = document.getElementById(this.options.container + "_handle");
+    let path = document.getElementById(this.options.container + "_path");
     let svgContainer = document.getElementById("svg_container");
 
     //click event listener
-    element.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    circle.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    handle.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    path.addEventListener("mousedown", this.handleMouseDown.bind(this));
+
     //touch event listener
-    element.addEventListener("touchstart", this.handleMouseDown.bind(this));
+    circle.addEventListener("touchstart", this.handleMouseDown.bind(this));
+    handle.addEventListener("touchstart", this.handleMouseDown.bind(this));
+    path.addEventListener("touchstart", this.handleMouseDown.bind(this));
+
     //event listener while moving cursor
-    element.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    circle.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    handle.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    path.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+
     //event listener while moving finger
-    element.addEventListener("touchmove", this.handleMouseDrag.bind(this));
-    //event listener when mouse is up
+    circle.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    handle.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    path.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+
+    //event listener when mouse is up or when finger removed from screen
     svgContainer.addEventListener("mouseup", this.handleMouseStop.bind(this));
-    //event listener when finger removed from screen
     svgContainer.addEventListener("touchend", this.handleMouseStop.bind(this));
   }
 
@@ -167,9 +180,9 @@ class CircularSlider {
     handle.setAttribute("id", this.options.container + "_handle");
     handle.setAttribute("cx", coordinates.x);
     handle.setAttribute("cy", coordinates.y);
-    handle.setAttribute("r", this.pathWidth / 2);
+    handle.setAttribute("r", this.pathWidth / 4);
     handle.setAttribute("stroke", "black");
-    handle.setAttribute("stroke-width", 5);
+    handle.setAttribute("stroke-width", 10);
     handle.setAttribute("fill", "grey");
     svg.appendChild(handle);
   }
