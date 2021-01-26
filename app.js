@@ -4,7 +4,7 @@ const test_options = {
   max: 1000,
   min: 0,
   step: 10,
-  radius: 100,
+  radius: 150,
 };
 
 const test_options1 = {

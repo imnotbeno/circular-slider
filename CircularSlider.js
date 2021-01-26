@@ -7,7 +7,8 @@ class CircularSlider {
     this.svgContainerSize = 400;
     this.cx = this.svgContainerSize / 2;
     this.cy = this.svgContainerSize / 2;
-    this.pathWidth = 30;
+    this.pathWidth = 40;
+    this.isMouseDown = false;
   }
 
   drawSliders() {
@@ -17,7 +18,10 @@ class CircularSlider {
     //get svg container
     const svgContainer = document.getElementById("svg_container");
 
+    //Slider progress path
     this.drawSliderPath(this.options, 0, svgContainer);
+
+    //Slider background circle
     this.drawCircle(this.options, svgContainer);
 
     //Draw handle
@@ -31,18 +35,29 @@ class CircularSlider {
 
   eventListeners() {
     let element = document.getElementById("slider_circle");
+    let svgContainer = document.getElementById("svg_container");
 
     //click event listener
     element.addEventListener("mousedown", this.handleMouseDown.bind(this));
     //touch event listener
-    // element.addEventListener("touchstart", this.calculateCursorPosition);
-    // //event listener while moving cursor
-    // element.addEventListener("mousemove", this.calculateCursorPosition);
-    // //event listener while moving finger
-    // element.addEventListener("touchmove", this.calculateCursorPosition);
+    element.addEventListener("touchstart", this.handleMouseDown.bind(this));
+    //event listener while moving cursor
+    element.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    //event listener while moving finger
+    element.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    //event listener when mouse is up
+    svgContainer.addEventListener("mouseup", this.handleMouseStop.bind(this));
+    //event listener when finger removed from screen
+    svgContainer.addEventListener("touchend", this.handleMouseStop.bind(this));
   }
 
+  //********EVENT HANDLERS********//
+
   handleMouseDown(event) {
+    if (this.isMouseDown) return;
+
+    //set that mouse/touch is down
+    this.isMouseDown = true;
     let mouseAngle = this.calculateCursorAngle(event);
 
     //Draw slider progress
@@ -62,6 +77,35 @@ class CircularSlider {
     );
     handle.setAttribute("cx", handleCenter.x);
     handle.setAttribute("cy", handleCenter.y);
+  }
+
+  handleMouseDrag(event) {
+    if (!this.isMouseDown) return;
+    
+    let mouseAngle = this.calculateCursorAngle(event);
+
+    //Slider progress when dragging
+    const progressPath = document.getElementById("slider_path");
+    progressPath.setAttribute(
+      "d",
+      this.calculatePath(this.cx, this.cy, this.options.radius, 0, mouseAngle)
+    );
+
+    //Handle drag
+    const handle = document.getElementById("slider_handle");
+    const handleCenter = this.polarToCartesian(
+      this.cx,
+      this.cy,
+      this.options.radius,
+      mouseAngle
+    );
+    handle.setAttribute("cx", handleCenter.x);
+    handle.setAttribute("cy", handleCenter.y);
+  }
+
+  handleMouseStop() {
+    if (!this.isMouseDown) return;
+    this.isMouseDown = false;
   }
 
   //********DRAW FUNCTIONS********//
@@ -99,7 +143,7 @@ class CircularSlider {
     circle.setAttribute("cy", this.cy);
     circle.setAttribute("r", opts.radius);
     circle.setAttribute("stroke", "grey");
-    circle.setAttribute("stroke-width", 10);
+    circle.setAttribute("stroke-width", 30);
     circle.setAttribute("fill", "none");
     svg.appendChild(circle);
   }
