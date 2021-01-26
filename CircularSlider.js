@@ -13,7 +13,7 @@ class CircularSlider {
 
   drawSliders() {
     //Svg container
-    this.drawSVGcontainer();
+    //this.drawSVGcontainer();
 
     //get svg container
     const svgContainer = document.getElementById("svg_container");
@@ -104,6 +104,7 @@ class CircularSlider {
   }
 
   handleMouseStop() {
+    //Mouse is up or finger has stopped touching screen
     if (!this.isMouseDown) return;
     this.isMouseDown = false;
   }
