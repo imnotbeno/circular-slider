@@ -34,7 +34,7 @@ class CircularSlider {
   //********EVENT LISTENERS********//
 
   eventListeners() {
-    let element = document.getElementById("slider_circle");
+    let element = document.getElementById(this.options.container);
     let svgContainer = document.getElementById("svg_container");
 
     //click event listener
@@ -61,14 +61,16 @@ class CircularSlider {
     let mouseAngle = this.calculateCursorAngle(event);
 
     //Draw slider progress
-    const progressPath = document.getElementById("slider_path");
+    const progressPath = document.getElementById(
+      this.options.container + "_path"
+    );
     progressPath.setAttribute(
       "d",
       this.calculatePath(this.cx, this.cy, this.options.radius, 0, mouseAngle)
     );
 
     //Draw new handle position
-    const handle = document.getElementById("slider_handle");
+    const handle = document.getElementById(this.options.container + "_handle");
     const handleCenter = this.polarToCartesian(
       this.cx,
       this.cy,
@@ -81,18 +83,20 @@ class CircularSlider {
 
   handleMouseDrag(event) {
     if (!this.isMouseDown) return;
-    
+
     let mouseAngle = this.calculateCursorAngle(event);
 
     //Slider progress when dragging
-    const progressPath = document.getElementById("slider_path");
+    const progressPath = document.getElementById(
+      this.options.container + "_path"
+    );
     progressPath.setAttribute(
       "d",
       this.calculatePath(this.cx, this.cy, this.options.radius, 0, mouseAngle)
     );
 
     //Handle drag
-    const handle = document.getElementById("slider_handle");
+    const handle = document.getElementById(this.options.container + "_handle");
     const handleCenter = this.polarToCartesian(
       this.cx,
       this.cy,
@@ -125,7 +129,7 @@ class CircularSlider {
     const path = document.createElementNS(SVG_URL, "path");
 
     //Calculate path
-    path.setAttribute("id", "slider_path");
+    path.setAttribute("id", opts.container + "_path");
     path.setAttribute(
       "d",
       this.calculatePath(this.cx, this.cy, opts.radius, 0, angle)
@@ -139,7 +143,7 @@ class CircularSlider {
   //Draw circle for bottom of slider
   drawCircle(opts, svg) {
     const circle = document.createElementNS(SVG_URL, "circle");
-    circle.setAttribute("id", "slider_circle");
+    circle.setAttribute("id", opts.container);
     circle.setAttribute("cx", this.cx);
     circle.setAttribute("cy", this.cy);
     circle.setAttribute("r", opts.radius);
@@ -160,7 +164,7 @@ class CircularSlider {
     );
 
     const handle = document.createElementNS(SVG_URL, "circle");
-    handle.setAttribute("id", "slider_handle");
+    handle.setAttribute("id", this.options.container + "_handle");
     handle.setAttribute("cx", coordinates.x);
     handle.setAttribute("cy", coordinates.y);
     handle.setAttribute("r", this.pathWidth / 2);

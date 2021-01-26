@@ -1,5 +1,5 @@
 const test_options = {
-  container: "sliders",
+  container: "slider1",
   color: "red",
   max: 1000,
   min: 0,
@@ -8,7 +8,7 @@ const test_options = {
 };
 
 const test_options1 = {
-  container: "sliders",
+  container: "slider2",
   color: "blue",
   max: 100,
   min: 0,
@@ -17,7 +17,7 @@ const test_options1 = {
 };
 
 const test_options2 = {
-  container: "sliders",
+  container: "slider3",
   color: "green",
   max: 500,
   min: 0,
