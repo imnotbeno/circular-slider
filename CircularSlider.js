@@ -224,8 +224,18 @@ class CircularSlider {
       .getElementById("svg_container")
       .getBoundingClientRect();
 
-    let x = event.clientX - svgContainer.left;
-    let y = event.clientY - svgContainer.top;
+    let clientX, clientY;
+
+    if (event.changedTouches) {
+      clientX = event.changedTouches[0].clientX;
+      clientY = event.changedTouches[0].clientY;
+    } else {
+      clientX = event.clientX;
+      clientY = event.clientY;
+    }
+
+    let x = clientX - svgContainer.left;
+    let y = clientY - svgContainer.top;
 
     return { x, y };
   }
@@ -255,4 +265,5 @@ class CircularSlider {
 
     return angleDeg;
   }
+
 }
