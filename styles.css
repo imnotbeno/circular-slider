@@ -2,9 +2,16 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 body {
   display: flex;
-  font-family: cursive;
+  font-family: "Roboto", sans-serif;
+  position: relative;
 }
 
 /* Responsive */
@@ -67,6 +74,7 @@ body {
 
 .legend-amount {
   margin-top: 12px;
+  font-weight: bold;
 }
 
 .color-square {

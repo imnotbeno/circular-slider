@@ -12,9 +12,6 @@ class CircularSlider {
   }
 
   drawSliders() {
-    //Svg container
-    //this.drawSVGcontainer();
-
     //get svg container
     const svgContainer = document.getElementById("svg_container");
 
@@ -144,15 +141,6 @@ class CircularSlider {
   }
 
   //********DRAW FUNCTIONS********//
-
-  //Draw svg conatiner
-  drawSVGcontainer() {
-    const svg = document.createElementNS(SVG_URL, "svg");
-    svg.setAttribute("id", "svg_container");
-    svg.setAttribute("height", this.svgContainerSize);
-    svg.setAttribute("width", this.svgContainerSize);
-    this.container.appendChild(svg);
-  }
 
   //Draw svg path
   drawSliderPath(opts, angle, svg) {
