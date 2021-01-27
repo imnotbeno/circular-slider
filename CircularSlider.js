@@ -92,6 +92,8 @@ class CircularSlider {
     );
     handle.setAttribute("cx", handleCenter.x);
     handle.setAttribute("cy", handleCenter.y);
+
+    this.updateLegend(this.options, mouseAngle);
   }
 
   handleMouseDrag(event) {
@@ -118,12 +120,27 @@ class CircularSlider {
     );
     handle.setAttribute("cx", handleCenter.x);
     handle.setAttribute("cy", handleCenter.y);
+
+    this.updateLegend(this.options, mouseAngle);
   }
 
   handleMouseStop() {
     //Mouse is up or finger has stopped touching screen
     if (!this.isMouseDown) return;
     this.isMouseDown = false;
+  }
+
+  //********LEGEND********//
+
+  updateLegend(opts, currentAngle) {
+    let targetLegend = document.getElementById(opts.container + "-amount");
+
+    //Calculate value
+    let range = opts.max - opts.min;
+    let progressArcLength = (range * currentAngle) / 360;
+    let noSteps = Math.round(progressArcLength / opts.step);
+    let currentAmount = opts.min + noSteps * opts.step;
+    targetLegend.innerHTML = currentAmount;
   }
 
   //********DRAW FUNCTIONS********//
@@ -265,5 +282,4 @@ class CircularSlider {
 
     return angleDeg;
   }
-
 }
