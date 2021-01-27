@@ -20,7 +20,7 @@ body {
 }
 
 /*For mobile*/
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 420px) {
   [class*="col-"] {
     width: 100%;
   }
@@ -28,20 +28,27 @@ body {
 
 /*Sliders*/
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   width: 100%;
-  padding: 5%;
+  padding: 1%;
 }
 
 #app {
   display: flex;
   flex-wrap: wrap;
+  max-width: 1100px;
+}
+
+#sliders {
+  max-width: 730px;
+  width: 100%;
+  max-height: 730px;
 }
 
 /*Legend*/
 
 .legend {
-  float: left;
+  width: 350px;
 }
 
 .legend ul {
@@ -54,11 +61,11 @@ body {
 
 .legend-title {
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 5px;
   margin-top: 10px;
 }
 
-.legend-amount{
+.legend-amount {
   margin-top: 12px;
 }
 

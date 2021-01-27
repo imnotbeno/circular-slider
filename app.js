@@ -1,6 +1,6 @@
 const transportation = {
   container: "transportation",
-  color: "#ed553b",
+  color: "#c62121",
   max: 1000,
   min: 0,
   step: 100,
@@ -19,7 +19,7 @@ const food = {
 const insurance = {
   container: "insurance",
   color: "#3caea3",
-  max: 1000,
+  max: 10000,
   min: 0,
   step: 10,
   radius: 200,
