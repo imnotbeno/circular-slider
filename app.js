@@ -1,32 +1,55 @@
-const test_options = {
+const transportation = {
   container: "transportation",
-  color: "red",
+  color: "#ed553b",
+  max: 1000,
+  min: 0,
+  step: 100,
+  radius: 300,
+};
+
+const food = {
+  container: "food",
+  color: "#f6d55c",
+  max: 20,
+  min: 0,
+  step: 5,
+  radius: 250,
+};
+
+const insurance = {
+  container: "insurance",
+  color: "#3caea3",
   max: 1000,
   min: 0,
   step: 10,
-  radius: 150,
+  radius: 200,
 };
 
-const test_options1 = {
-  container: "food",
-  color: "blue",
-  max: 100,
-  min: 0,
-  step: 5,
-  radius: 80,
-};
-
-const test_options2 = {
-  container: "slider3",
-  color: "green",
+const entertainment = {
+  container: "entertainment",
+  color: "#20639b",
   max: 500,
   min: 0,
   step: 20,
+  radius: 150,
+};
+
+const healthcare = {
+  container: "healthcare",
+  color: "#843B62",
+  max: 4,
+  min: 0,
+  step: 1,
   radius: 100,
 };
 
-let test_slider = new CircularSlider(test_options);
-test_slider.drawSliders();
-let test_slider1 = new CircularSlider(test_options1);
-test_slider1.drawSliders();
-
+let transportation_slider = new CircularSlider(transportation);
+let food_slider = new CircularSlider(food);
+let insurance_slider = new CircularSlider(insurance);
+let entertainment_slider = new CircularSlider(entertainment);
+let healthcare_slider = new CircularSlider(healthcare);
+transportation_slider.drawSliders();
+food_slider.drawSliders();
+insurance_slider.drawSliders();
+entertainment_slider.drawSliders();
+healthcare_slider.drawSliders();

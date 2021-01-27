@@ -4,10 +4,10 @@ class CircularSlider {
   constructor(options) {
     this.options = options;
     this.container = document.getElementById(this.options.container);
-    this.svgContainerSize = 400;
+    this.svgContainerSize = 700;
     this.cx = this.svgContainerSize / 2;
     this.cy = this.svgContainerSize / 2;
-    this.pathWidth = 40;
+    this.pathWidth = 30;
     this.isMouseDown = false;
   }
 
@@ -177,7 +177,7 @@ class CircularSlider {
     circle.setAttribute("cx", this.cx);
     circle.setAttribute("cy", this.cy);
     circle.setAttribute("r", opts.radius);
-    circle.setAttribute("stroke", "grey");
+    circle.setAttribute("stroke", "#d1d1cf");
     circle.setAttribute("stroke-width", 30);
     circle.setAttribute("fill", "none");
     svg.appendChild(circle);
@@ -197,9 +197,9 @@ class CircularSlider {
     handle.setAttribute("id", this.options.container + "_handle");
     handle.setAttribute("cx", coordinates.x);
     handle.setAttribute("cy", coordinates.y);
-    handle.setAttribute("r", this.pathWidth / 4);
-    handle.setAttribute("stroke", "black");
-    handle.setAttribute("stroke-width", 10);
+    handle.setAttribute("r", this.pathWidth / 2);
+    handle.setAttribute("stroke", "#353336");
+    handle.setAttribute("stroke-width", 2);
     handle.setAttribute("fill", "grey");
     svg.appendChild(handle);
   }
