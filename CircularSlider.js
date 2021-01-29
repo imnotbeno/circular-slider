@@ -47,14 +47,14 @@ class CircularSlider {
     path.addEventListener("touchstart", this.handleMouseDown.bind(this));
 
     //event listener while moving cursor
-    circle.addEventListener("mousemove", this.handleMouseDrag.bind(this));
-    handle.addEventListener("mousemove", this.handleMouseDrag.bind(this));
-    path.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    svgContainer.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    svgContainer.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    svgContainer.addEventListener("mousemove", this.handleMouseDrag.bind(this));
 
     //event listener while moving finger
-    circle.addEventListener("touchmove", this.handleMouseDrag.bind(this));
-    handle.addEventListener("touchmove", this.handleMouseDrag.bind(this));
-    path.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    svgContainer.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    svgContainer.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    svgContainer.addEventListener("touchmove", this.handleMouseDrag.bind(this));
 
     //event listener when mouse is up or when finger removed from screen
     svgContainer.addEventListener("mouseup", this.handleMouseStop.bind(this));
@@ -270,4 +270,7 @@ class CircularSlider {
 
     return angleDeg;
   }
+
+  
+
 }
