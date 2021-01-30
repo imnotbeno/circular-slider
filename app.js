@@ -1,5 +1,5 @@
 const transportation = {
-  container: "transportation",
+  container: "Transportation",
   color: "#c62121",
   max: 1000,
   min: 0,
@@ -8,7 +8,7 @@ const transportation = {
 };
 
 const food = {
-  container: "food",
+  container: "Food",
   color: "#f6d55c",
   max: 20,
   min: 0,
@@ -17,7 +17,7 @@ const food = {
 };
 
 const insurance = {
-  container: "insurance",
+  container: "Insurance",
   color: "#3caea3",
   max: 10000,
   min: 0,
@@ -26,7 +26,7 @@ const insurance = {
 };
 
 const entertainment = {
-  container: "entertainment",
+  container: "Entertainment",
   color: "#20639b",
   max: 500,
   min: 0,
@@ -35,7 +35,7 @@ const entertainment = {
 };
 
 const healthcare = {
-  container: "healthcare",
+  container: "Healthcare",
   color: "#843B62",
   max: 4,
   min: 0,

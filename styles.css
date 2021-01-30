@@ -54,15 +54,15 @@ body {
 
 /*Legend*/
 
-.legend {
+#legend {
   width: 350px;
 }
 
-.legend ul {
+#legend ul {
   list-style-type: none;
 }
 
-.legend li {
+#legend li {
   display: flex;
 }
 

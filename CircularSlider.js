@@ -4,9 +4,14 @@ class CircularSlider {
   constructor(options) {
     this.options = options;
     this.container = document.getElementById(this.options.container);
-    this.svgContainerSize = 700;
-    this.cx = this.svgContainerSize / 2;
-    this.cy = this.svgContainerSize / 2;
+    this.svgContainerHeight = document
+      .getElementById("svg_container")
+      .getAttribute("height");
+    this.svgContainerWidth = document
+      .getElementById("svg_container")
+      .getAttribute("width");
+    this.cx = this.svgContainerHeight / 2;
+    this.cy = this.svgContainerWidth / 2;
     this.pathWidth = 30;
     this.isMouseDown = false;
   }
@@ -14,6 +19,9 @@ class CircularSlider {
   drawSliders() {
     //get svg container
     const svgContainer = document.getElementById("svg_container");
+
+    //get legend div
+    const legend = document.getElementById("legend-ul");
 
     //Slider background circle
     this.drawCircle(this.options, svgContainer);
@@ -23,6 +31,9 @@ class CircularSlider {
 
     //Draw handle
     this.drawHandle(this.options.radius, 0, svgContainer);
+
+    //Draw legend
+    this.createLegend(this.options, legend);
 
     //Svg container event listeners
     this.eventListeners();
@@ -128,6 +139,35 @@ class CircularSlider {
   }
 
   //********LEGEND********//
+
+  createLegend(opts, legend) {
+
+    //Legend item
+    const li = document.createElement("li");
+    li.setAttribute("class", opts.container);
+
+    //Legend color square
+    const colorSquare = document.createElement("span");
+    colorSquare.setAttribute("class", "color-square");
+    colorSquare.style.backgroundColor = opts.color;
+
+    //Set legend title
+    const liTitle = document.createElement("span");
+    liTitle.setAttribute("class", "legend-title");
+    liTitle.innerText = opts.container + ": $";
+
+    //Set legend
+    const liAmount = document.createElement("span");
+    liAmount.setAttribute("id", opts.container + "-amount");
+    liAmount.setAttribute("class", "legend-amount");
+    liAmount.innerText = "0";
+
+    //Display to DOM
+    li.appendChild(colorSquare);
+    li.appendChild(liTitle);
+    li.appendChild(liAmount);
+    legend.appendChild(li);
+  }
 
   updateLegend(opts, currentAngle) {
     let targetLegend = document.getElementById(opts.container + "-amount");
@@ -270,7 +310,4 @@ class CircularSlider {
 
     return angleDeg;
   }
-
-  
-
 }
