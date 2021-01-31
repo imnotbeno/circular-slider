@@ -36,16 +36,15 @@ class CircularSlider {
     this.createLegend(this.options, legend);
 
     //Svg container event listeners
-    this.eventListeners();
+    this.eventListeners(svgContainer);
   }
 
   //********EVENT LISTENERS********//
 
-  eventListeners() {
+  eventListeners(svg) {
     let circle = document.getElementById(this.options.container);
     let handle = document.getElementById(this.options.container + "_handle");
     let path = document.getElementById(this.options.container + "_path");
-    let svgContainer = document.getElementById("svg_container");
 
     //click event listener
     circle.addEventListener("mousedown", this.handleMouseDown.bind(this));
@@ -58,18 +57,18 @@ class CircularSlider {
     path.addEventListener("touchstart", this.handleMouseDown.bind(this));
 
     //event listener while moving cursor
-    svgContainer.addEventListener("mousemove", this.handleMouseDrag.bind(this));
-    svgContainer.addEventListener("mousemove", this.handleMouseDrag.bind(this));
-    svgContainer.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    svg.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    svg.addEventListener("mousemove", this.handleMouseDrag.bind(this));
+    svg.addEventListener("mousemove", this.handleMouseDrag.bind(this));
 
     //event listener while moving finger
-    svgContainer.addEventListener("touchmove", this.handleMouseDrag.bind(this));
-    svgContainer.addEventListener("touchmove", this.handleMouseDrag.bind(this));
-    svgContainer.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    svg.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    svg.addEventListener("touchmove", this.handleMouseDrag.bind(this));
+    svg.addEventListener("touchmove", this.handleMouseDrag.bind(this));
 
     //event listener when mouse is up or when finger removed from screen
-    svgContainer.addEventListener("mouseup", this.handleMouseStop.bind(this));
-    svgContainer.addEventListener("touchend", this.handleMouseStop.bind(this));
+    svg.addEventListener("mouseup", this.handleMouseStop.bind(this));
+    svg.addEventListener("touchend", this.handleMouseStop.bind(this));
   }
 
   //********EVENT HANDLERS********//
@@ -141,7 +140,6 @@ class CircularSlider {
   //********LEGEND********//
 
   createLegend(opts, legend) {
-
     //Legend item
     const li = document.createElement("li");
     li.setAttribute("class", opts.container);
@@ -160,7 +158,7 @@ class CircularSlider {
     const liAmount = document.createElement("span");
     liAmount.setAttribute("id", opts.container + "-amount");
     liAmount.setAttribute("class", "legend-amount");
-    liAmount.innerText = "0";
+    liAmount.innerText = opts.min;
 
     //Display to DOM
     li.appendChild(colorSquare);
@@ -206,7 +204,7 @@ class CircularSlider {
     circle.setAttribute("cy", this.cy);
     circle.setAttribute("r", opts.radius);
     circle.setAttribute("stroke", "#d1d1cf");
-    circle.setAttribute("stroke-width", 30);
+    circle.setAttribute("stroke-width", this.pathWidth);
     circle.setAttribute("fill", "none");
     svg.appendChild(circle);
   }
@@ -241,11 +239,8 @@ class CircularSlider {
     let end = this.polarToCartesian(x, y, r, startangle);
     let direction;
 
-    if (endangle - startangle <= 180) {
-      direction = 0;
-    } else {
-      direction = 1;
-    }
+    //direction of path
+    endangle - startangle <= 180 ? (direction = 0) : (direction = 1);
 
     //array for drawing SVG path
     let d = ["M", start.x, start.y, "A", r, r, 0, direction, 0, end.x, end.y];
@@ -271,13 +266,13 @@ class CircularSlider {
 
     let clientX, clientY;
 
-    if (event.changedTouches) {
-      clientX = event.changedTouches[0].clientX;
-      clientY = event.changedTouches[0].clientY;
-    } else {
-      clientX = event.clientX;
-      clientY = event.clientY;
-    }
+    event.changedTouches
+      ? (clientX = event.changedTouches[0].clientX)
+      : (clientX = event.clientX);
+
+    event.changedTouches
+      ? (clientY = event.changedTouches[0].clientY)
+      : (clientY = event.clientY);
 
     let x = clientX - svgContainer.left;
     let y = clientY - svgContainer.top;
@@ -302,11 +297,7 @@ class CircularSlider {
     //convert rad to degree
     let angle = (angleRad * 180) / Math.PI;
 
-    if (angle < 0) {
-      angleDeg = angle + 360;
-    } else {
-      angleDeg = angle;
-    }
+    angle < 0 ? (angleDeg = angle + 360) : (angleDeg = angle);
 
     return angleDeg;
   }
