@@ -14,6 +14,16 @@ class CircularSlider {
     this.cy = this.svgContainerWidth / 2;
     this.pathWidth = 30;
     this.isMouseDown = false;
+
+    //Default slider options
+    this.optionsDefault = {
+      container: "Value",
+      color: "#3783ff",
+      max: 100,
+      min: 0,
+      step: 1,
+      radius: 50,
+    };
   }
 
   drawSliders() {
@@ -22,6 +32,9 @@ class CircularSlider {
 
     //get legend div
     const legend = document.getElementById("legend-ul");
+
+    //Check if input options available
+    this.checkOptions(this.options, this.optionsDefault);
 
     //Slider background circle
     this.drawCircle(this.options, svgContainer);
@@ -37,6 +50,23 @@ class CircularSlider {
 
     //Svg container event listeners
     this.eventListeners(svgContainer);
+  }
+
+  //********OPTIONS VALIDATION********//
+
+  checkOptions(opts, optsDef) {
+    //Check if input of type object
+    if (typeof opts !== "object") {
+      throw "TypeError: Input value is not of type object!";
+    }
+
+    //Check if options available, else use default
+    opts.container = opts.container ?? optsDef.container;
+    opts.color = opts.color ?? optsDef.color;
+    opts.max = opts.max ?? optsDef.max;
+    opts.min = opts.min ?? optsDef.min;
+    opts.step = opts.step ?? optsDef.step;
+    opts.radius = opts.radius ?? optsDef.radius;
   }
 
   //********EVENT LISTENERS********//
