@@ -88,12 +88,8 @@ class CircularSlider {
 
     //event listener while moving cursor
     svg.addEventListener("mousemove", this.handleMouseDrag.bind(this));
-    svg.addEventListener("mousemove", this.handleMouseDrag.bind(this));
-    svg.addEventListener("mousemove", this.handleMouseDrag.bind(this));
 
     //event listener while moving finger
-    svg.addEventListener("touchmove", this.handleMouseDrag.bind(this));
-    svg.addEventListener("touchmove", this.handleMouseDrag.bind(this));
     svg.addEventListener("touchmove", this.handleMouseDrag.bind(this));
 
     //event listener when mouse is up or when finger removed from screen
